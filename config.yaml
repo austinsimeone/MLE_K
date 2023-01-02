@@ -1,20 +1,22 @@
-seed: 007
+seed: 1337
 log_level: "INFO"
 log_format: "%(asctime)s - %(levelname)s - %(message)s"
 data:
   local_data_path: "data"
-  file_name: "iris"
-  extension: ".parquet"
+  file_name: "train"
+  extension: ".csv"
 preprocessing:
   train_ratio: 0.6
   val_ratio: 0.2
   test_ratio: 0.2
 model:
-  feature_cols: ["sepal_length_cm", "sepal_width_cm", "petal_length_cm", "petal_width_cm"]
-  target_col: "target"
-  batch_size: 32
-  learning_rate: 0.01
+  num_cols: ["x1", "x2", "x4", "x5"]
+  cat_cols: ["x3", "x6", "x7"]
+  feature_col: 'x'
+  target_col: "y"
+  batch_size: 25
+  learning_rate: 0.001
   hidden_dim: 5
   num_workers: 0
-  max_epochs: 1000
+  max_epochs: 10000000000
   decision_metric: "test_mcc"

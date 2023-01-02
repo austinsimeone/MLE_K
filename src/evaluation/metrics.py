@@ -2,7 +2,7 @@ from typing import Iterable, Dict
 from sklearn.metrics import accuracy_score, f1_score, matthews_corrcoef
 
 
-def multi_class_metrics(y_true: Iterable[float], y_pred: Iterable[float], phase: str = "") -> Dict[str, float]:
+def class_metrics(y_true: Iterable[float], y_pred: Iterable[float], phase: str = "") -> Dict[str, float]:
     if phase != "":
         phase += "_"
     metrics = {

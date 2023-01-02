@@ -10,7 +10,7 @@ def split(CONFIG):
     load_dir = Path("/".join([CONFIG["data"]["local_data_path"], "processed"]))
     file_name = CONFIG["data"]["file_name"]
     extension = CONFIG["data"]["extension"]
-    df = pd.read_parquet(str(load_dir / file_name) + extension)
+    df = pd.read_csv(str(load_dir / file_name) + extension)
     logging.info(f"Loaded {df.shape[0]} rows of data")
 
     # Check split configs
@@ -22,11 +22,19 @@ def split(CONFIG):
     # Split data
     idx = list(range(df.shape[0]))
     train_idx, val_idx = train_test_split(
-        idx, train_size=CONFIG["preprocessing"]["train_ratio"], stratify=df[CONFIG["model"]["target_col"]], random_state=CONFIG["seed"]
+        idx,
+        train_size=CONFIG["preprocessing"]["train_ratio"],
+        stratify=df[CONFIG["model"]["target_col"]],
+        random_state=CONFIG["seed"]
     )
-    val_test_ratio = CONFIG["preprocessing"]["val_ratio"] / (CONFIG["preprocessing"]["val_ratio"] + CONFIG["preprocessing"]["test_ratio"])
+    val_test_ratio = CONFIG["preprocessing"]["val_ratio"] / \
+                     (CONFIG["preprocessing"]["val_ratio"] + CONFIG["preprocessing"]["test_ratio"])
     val_idx, test_idx = train_test_split(
-        val_idx, train_size=val_test_ratio, stratify=df.loc[val_idx, CONFIG["model"]["target_col"]], random_state=CONFIG["seed"]
+        val_idx,
+        train_size=val_test_ratio,
+        stratify=df.loc[val_idx,
+                        CONFIG["model"]["target_col"]],
+        random_state=CONFIG["seed"]
     )
     train_df, val_df, test_df = (
         df.iloc[train_idx],
@@ -36,17 +44,17 @@ def split(CONFIG):
     logging.info("Split data into train, val, test sets")
 
     # Save data splits
-    save_dir = Path("/".join([CONFIG["data"]["local_data_path"], "processed"]))
+    save_dir = Path("/".join([CONFIG["data"]["local_data_path"], "processed_split"]))
     save_dir.mkdir(parents=True, exist_ok=True)
-    train_df.to_parquet(
+    train_df.to_csv(
         str(save_dir / file_name) + "_train" + extension,
         index=False,
     )
-    val_df.to_parquet(
+    val_df.to_csv(
         str(save_dir / file_name) + "_val" + extension,
         index=False,
     )
-    test_df.to_parquet(
+    test_df.to_csv(
         str(save_dir / file_name) + "_test" + extension,
         index=False,
     )

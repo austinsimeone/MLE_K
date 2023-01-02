@@ -7,13 +7,12 @@ from src.processing.features import clean_column_names
 
 
 def retrieve(CONFIG):
-    # Load Iris dataset
-    df = datasets.load_iris(as_frame=True)
-    df.frame.target = df.frame.target.map({i: df.target_names[i] for i in range(len(df.target_names))})
-    df.frame = clean_column_names(df.frame)
-    logging.info(f"Loaded {df.frame.shape[0]} rows of data")
+    # this is where we would add the retrieve portion.
+    # add code below and above
+    ##################################################
 
-    # Save Iris dataset to data folder
+    ##################################################
+    # Save dataset to data folder
     save_dir = Path("/".join([CONFIG["data"]["local_data_path"], "raw"]))
     save_dir.mkdir(parents=True, exist_ok=True)
     file_name = CONFIG["data"]["file_name"] + CONFIG["data"]["extension"]
