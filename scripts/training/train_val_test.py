@@ -65,7 +65,7 @@ def train_val_test(CONFIG, experiment, model):
 if __name__ == "__main__":
     # Grab command line arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model", help="model type", default="sklearn.ensemble.RandomForestClassifier")
+    parser.add_argument("--model", help="model type", default="sklearn.linear_model.LogisticRegression")
     parser.add_argument("--experiment", help="experiment id", default="None")
     args = parser.parse_args()
 

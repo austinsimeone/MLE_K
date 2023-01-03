@@ -21,7 +21,6 @@
 
 ### Options for running the ML pipeline
 
-- Using the bash script: `bash scripts/training/pipeline.sh`
 - Using the prefect flow: `python scripts/training/pipeline.py`
 
 ### Review Prefect Run 
@@ -69,6 +68,6 @@
 ### Theoretical Implementation
 *The below arch diagram is cloud agnostic. I used azure because the icons were free!*
 
-<img style="float: right;" src="imgs\ml flow architecture.svg">
+<img style="float: right;" src="imgs/ml flow architecture.svg">
 
 
