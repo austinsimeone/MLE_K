@@ -24,14 +24,6 @@
 - Using the bash script: `bash scripts/training/pipeline.sh`
 - Using the prefect flow: `python scripts/training/pipeline.py`
 
-#### Using the prefect orchestration locally
-
-1. Set prefect to use a local server: `prefect backend server`
-1. Start prefect server: `prefect server start`
-1. Start a prefect server agent: `prefect agent local start`
-1. Register prefect flow: `python scripts/training/pipeline.py --register true`
-1. Navigate to the prefect UI to review or schedule the flow: [prefect](http://127.0.0.1:8080)
-
 ### Review Run Metrics
 
 1. Launch MLFlow UI: `mlflow ui`
