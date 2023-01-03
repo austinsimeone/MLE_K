@@ -6,7 +6,6 @@ import argparse
 from prefect import flow, task, Flow
 from typing import Dict
 
-from scripts.training.retrieve import retrieve
 from scripts.training.preprocess import preprocess
 from scripts.training.split import split
 from scripts.training.train_val_test import train_val_test
@@ -61,7 +60,7 @@ def train_flow():
     #
     # exp3 = train_val_test_task(CONFIG, CONFIG["experiment"], "sklearn.svm.SVC")
     # exp4 = train_val_test_task(CONFIG, CONFIG["experiment"], "src.model.pytorch.MultiClassClassifier")
-    # registered = register_task(CONFIG, CONFIG["experiment"])
+    registered = register_task(CONFIG, CONFIG["experiment"])
 
 
 # Grab command line arguments

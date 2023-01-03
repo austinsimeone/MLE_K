@@ -11,7 +11,7 @@ nox
 mlflow == 1.30.0
 matplotlib
 prefect
-torchvision
-pytorch-lightning
 fastapi
 uvicorn
+psutil==5.9.0
+types-PyYAML

@@ -11,13 +11,7 @@ def test_read_root():
 
 
 def test_get_prediction_w_missing_features():
-    x = [
-        {
-            "sepal_length_cm": 0,
-            "sepal_width_cm": 0,
-            "petal_length_cm": 0,
-        }
-    ]
+    x = [{"x1": 0.0, "x2": 0.0, "x3": "Fri", "x4": 0.0, "x6": "California", "x7": "mercedes"}]
     response = client.post(
         "/predict",
         json=x,
@@ -26,20 +20,14 @@ def test_get_prediction_w_missing_features():
 
 
 def test_get_prediction():
-    x = [
-        {
-            "sepal_length_cm": 0,
-            "sepal_width_cm": 0,
-            "petal_length_cm": 0,
-            "petal_width_cm": 0,
-        }
-    ]
-    y = ["setosa"]
+    x = [{"x1": 0.0, "x2": 0.0, "x3": "Fri", "x4": 0.0, "x5": 0.0, "x6": "California", "x7": "mercedes"}]
+    y = [0]
     response = client.post(
         "/predict",
         json=x,
     )
     assert response.status_code == 200
     pred = response.json()
+    pred = [eval(i) for i in pred]
     assert len(pred) == 1
     assert pred == y

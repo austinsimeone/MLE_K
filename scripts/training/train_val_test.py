@@ -2,7 +2,6 @@ import logging
 import argparse
 import yaml
 from pathlib import Path
-import numpy as np
 import pandas as pd
 import mlflow
 
@@ -29,8 +28,7 @@ def train_val_test(CONFIG, experiment, model):
         # Train model
         model_type = model.replace("src.model.", "").split(".")[0]
         if model_type == "sklearn":
-            model = locate_model(model)(random_state=CONFIG["seed"],
-                                        max_iter=CONFIG['model']['max_epochs'])
+            model = locate_model(model)(random_state=CONFIG["seed"], max_iter=CONFIG["model"]["max_epochs"])
             mlflow.log_param("seed", CONFIG["seed"])
             model.fit(
                 train_df.filter(regex=f'^{CONFIG["model"]["feature_col"]}', axis=1),
@@ -51,17 +49,16 @@ def train_val_test(CONFIG, experiment, model):
 
         # Calculate and log metrics
         mlflow.log_metrics(
-            class_metrics(train_df[CONFIG["model"]["target_col"]],
-                          model.predict(train_df.filter(regex=f'^{CONFIG["model"]["feature_col"]}', axis=1)),
-                                "train"))
+            class_metrics(
+                train_df[CONFIG["model"]["target_col"]], model.predict(train_df.filter(regex=f'^{CONFIG["model"]["feature_col"]}', axis=1)), "train"
+            )
+        )
         mlflow.log_metrics(
-            class_metrics(val_df[CONFIG["model"]["target_col"]],
-                          model.predict(val_df.filter(regex=f'^{CONFIG["model"]["feature_col"]}', axis=1)),
-                                "val"))
+            class_metrics(val_df[CONFIG["model"]["target_col"]], model.predict(val_df.filter(regex=f'^{CONFIG["model"]["feature_col"]}', axis=1)), "val")
+        )
         mlflow.log_metrics(
-            class_metrics(test_df[CONFIG["model"]["target_col"]],
-                          model.predict(test_df.filter(regex=f'^{CONFIG["model"]["feature_col"]}', axis=1)),
-                                "test"))
+            class_metrics(test_df[CONFIG["model"]["target_col"]], model.predict(test_df.filter(regex=f'^{CONFIG["model"]["feature_col"]}', axis=1)), "test")
+        )
 
     # fetch logged data
     params, metrics, tags, artifacts = fetch_logged_data(run.info.run_id)

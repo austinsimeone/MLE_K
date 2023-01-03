@@ -21,9 +21,7 @@ def clean_column_names(input: pd.DataFrame, replace_dict: dict = {" ": "_", "(":
 
 # seperate these functions for easier editing
 def numeric_transformer(data: pd.DataFrame):
-    transform_pipeline = Pipeline(
-        steps=[("imputer", SimpleImputer(strategy="median")), ("scaler", StandardScaler())]
-    )
+    transform_pipeline = Pipeline(steps=[("imputer", SimpleImputer(strategy="median")), ("scaler", StandardScaler())])
     num_data = transform_pipeline.fit_transform(data)
     return num_data
 

@@ -11,18 +11,15 @@ from src.model.utils import fetch_logged_data
 def register(CONFIG, experiment):
     client = MlflowClient()
     experiment_id = client.get_experiment_by_name(experiment).experiment_id
-    best_run = mlflow.search_runs(
-        experiment_id,
-        max_results=1,
-        order_by=["metric." + CONFIG["model"]["decision_metric"] + " DESC"])[0]
-    print(best_run)
-    params, metrics, tags, artifacts = fetch_logged_data(best_run)
+    best_run = mlflow.search_runs(experiment_id, max_results=1, order_by=["metric." + CONFIG["model"]["decision_metric"] + " DESC"])
+    best_run_id = best_run["run_id"][0]
+    params, metrics, tags, artifacts = fetch_logged_data(best_run_id)
     logging.info(f"Best model: run_id {best_run.run_id}, model_type {tags['model_type']}, metric_value {metrics[CONFIG['model']['decision_metric']]}")
 
     model_dict = {
         "experiment": experiment,
         "experiment_id": experiment_id,
-        "run_id": best_run.run_id,
+        "run_id": best_run_id,
         "model_type": tags["model_type"],
         "decision_metric": CONFIG["model"]["decision_metric"],
         "metric_value": metrics[CONFIG["model"]["decision_metric"]],

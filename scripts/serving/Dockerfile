@@ -1,4 +1,4 @@
-FROM python:3.8
+FROM python:3.9
 
 ADD src /app/src
 ADD requirements.txt /app/requirements.txt

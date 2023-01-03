@@ -18,5 +18,5 @@ model:
   learning_rate: 0.001
   hidden_dim: 5
   num_workers: 0
-  max_epochs: 10000000000
+  max_epochs: 10000
   decision_metric: "test_mcc"
