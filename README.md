@@ -69,3 +69,11 @@
 - [black](https://black.readthedocs.io/en/stable/) - formatter
 - [mypy](https://mypy.readthedocs.io/en/stable/getting_started.html) - static type checker
 - [pytest](https://docs.pytest.org/en/stable/contents.html) - testing
+
+
+### Theoretical Implementation
+*The below arch diagram is cloud agnostic. I used azure because the icons were free!*
+
+<img style="float: right;" src="imgs\ml flow architecture.svg">
+
+

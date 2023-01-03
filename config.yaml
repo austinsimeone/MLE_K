@@ -20,3 +20,4 @@ model:
   num_workers: 0
   max_epochs: 10000
   decision_metric: "test_mcc"
+  model_type: 'sklearn.linear_model.LogisticRegression'

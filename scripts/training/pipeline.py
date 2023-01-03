@@ -20,11 +20,6 @@ def config_task():
     return CONFIG
 
 
-# @task()
-# def retrieve_task(CONFIG: Dict):
-#     retrieve(CONFIG)
-
-
 @task()
 def preprocess_task(CONFIG: Dict):
     preprocess(CONFIG)
@@ -50,23 +45,17 @@ def train_flow():
     # Grab pipeline configuration
     CONFIG = config_task()
     # Prepare data for training
-    # retrieved = retrieve_task(CONFIG=CONFIG)
     preprocessed = preprocess_task(CONFIG=CONFIG)
     splits = split_task(CONFIG=CONFIG)
     # Run experiments on train, val, and test data splits
-    exp0 = train_val_test_task(CONFIG, CONFIG["experiment"], "sklearn.linear_model.LogisticRegression")
-    # exp1 = train_val_test_task(CONFIG, CONFIG["experiment"], "sklearn.tree.DecisionTreeClassifier")
-    # exp2 = train_val_test_task(CONFIG, CONFIG["experiment"], "sklearn.ensemble.RandomForestClassifier")
-    #
-    # exp3 = train_val_test_task(CONFIG, CONFIG["experiment"], "sklearn.svm.SVC")
-    # exp4 = train_val_test_task(CONFIG, CONFIG["experiment"], "src.model.pytorch.MultiClassClassifier")
+    exp0 = train_val_test_task(CONFIG, CONFIG["experiment"], CONFIG['model']["model_type"])
     registered = register_task(CONFIG, CONFIG["experiment"])
 
 
-# Grab command line arguments
-parser = argparse.ArgumentParser()
-parser.add_argument("--register", help="whether to register the flow", default="false")
-args = parser.parse_args()
-
 if __name__ == "__main__":
+    # Grab command line arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--register", help="whether to register the flow", default="false")
+    args = parser.parse_args()
+
     train_flow()

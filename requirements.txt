@@ -15,3 +15,4 @@ fastapi
 uvicorn
 psutil==5.9.0
 types-PyYAML
+xgboost==1.7

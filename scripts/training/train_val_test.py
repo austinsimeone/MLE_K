@@ -26,24 +26,20 @@ def train_val_test(CONFIG, experiment, model):
         logging.info(f"Loaded training datasets from {load_dir}")
 
         # Train model
-        model_type = model.replace("src.model.", "").split(".")[0]
-        if model_type == "sklearn":
-            model = locate_model(model)(random_state=CONFIG["seed"], max_iter=CONFIG["model"]["max_epochs"])
-            mlflow.log_param("seed", CONFIG["seed"])
-            model.fit(
+        model = locate_model(model)(random_state=CONFIG["seed"], max_iter=CONFIG["model"]["max_epochs"])
+        mlflow.log_param("seed", CONFIG["seed"])
+        model.fit(
+            train_df.filter(regex=f'^{CONFIG["model"]["feature_col"]}', axis=1),
+            train_df[CONFIG["model"]["target_col"]],
+        )
+        mlflow.sklearn.log_model(
+            model,
+            "sklearn_model",
+            signature=mlflow.models.signature.infer_signature(
                 train_df.filter(regex=f'^{CONFIG["model"]["feature_col"]}', axis=1),
                 train_df[CONFIG["model"]["target_col"]],
-            )
-            mlflow.sklearn.log_model(
-                model,
-                "sklearn_model",
-                signature=mlflow.models.signature.infer_signature(
-                    train_df.filter(regex=f'^{CONFIG["model"]["feature_col"]}', axis=1),
-                    train_df[CONFIG["model"]["target_col"]],
-                ),
-            )
-        else:
-            logging.error(f"Unknown model type {model_type}")
+            ),
+        )
 
         logging.info(f"Trained and stored model in run {run.info.run_id}")
 
