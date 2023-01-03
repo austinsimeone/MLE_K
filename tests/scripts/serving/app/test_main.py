@@ -21,7 +21,7 @@ def test_get_prediction_w_missing_features():
 
 def test_get_prediction():
     x = [{"x1": 0.0, "x2": 0.0, "x3": "Fri", "x4": 0.0, "x5": 0.0, "x6": "California", "x7": "mercedes"}]
-    y = [1]
+    y = [0]
     response = client.post(
         "/predict",
         json=x,
