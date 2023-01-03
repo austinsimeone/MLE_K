@@ -64,10 +64,140 @@
 - [mypy](https://mypy.readthedocs.io/en/stable/getting_started.html) - static type checker
 - [pytest](https://docs.pytest.org/en/stable/contents.html) - testing
 
+### Current File Structure
+```bash
+|   config.yaml
+|   conftest.py
+|   exam_readme.md
+|   noxfile.py
+|   README.md
+|   requirements.txt
+|   setup.cfg
+|   setup.py
+|
++---data
+|   +---processed
+|   |       train.csv
+|   |       
+|   +---processed_split
+|   |       train_test.csv
+|   |       train_train.csv
+|   |       train_val.csv
+|   |       
+|   \---raw
+|           score.csv
+|           train.csv
+|           
++---imgs
+|       ml flow architecture.svg
+|
++---mlruns
+|   |   model.yml
+|   |
+|   +---0
+|   |       meta.yaml
+|   |       
+|   +---1
+|   |   |   meta.yaml
+|   |   |   
+|   |   \---9499a2ebe2934331adc6ce02fe80960c
+|   |       |   meta.yaml
+|   |       |   
+|   |       +---artifacts
+|   |       |   \---sklearn_model
+|   |       |           conda.yaml
+|   |       |           MLmodel
+|   |       |           model.pkl
+|   |       |           python_env.yaml
+|   |       |           requirements.txt
+|   |       |           
+|   |       +---metrics
+|   |       |       test_accuracy
+|   |       |       test_f1_score
+|   |       |       test_mcc
+|   |       |       train_accuracy
+|   |       |       train_f1_score
+|   |       |       train_mcc
+|   |       |       val_accuracy
+|   |       |       val_f1_score
+|   |       |       val_mcc
+|   |       |       
+|   |       +---params
+|   |       |       seed
+|   |       |       
+|   |       \---tags
+|   |               mlflow.log-model.history
+|   |               mlflow.runName
+|   |               mlflow.source.git.commit
+|   |               mlflow.source.name
+|   |               mlflow.source.type
+|   |               mlflow.user
+|   |               model_type
+|   |
++---notebooks
+|       Model_Training.ipynb
+|       test.ipynb
+|       
++---scripts
+|   |   __init__.py
+|   |   
+|   +---orchestrating
+|   |       deploy.py
+|   |       
+|   +---serving
+|   |   |   docker-compose.yml
+|   |   |   Dockerfile
+|   |   |   __init__.py
+|   |   |   
+|   |   +---app
+|   |   |   |   main.py
+|   |   |   |   __init__.py
+|   |   | 
+|   |   |           
+|   |   +---scripts
+|   |   |       console.sh
+|   |   |       rebuild.sh
+|   |   |       run.sh
+|   |   
+|   +---training
+|   |   |   pipeline.py
+|   |   |   preprocess.py
+|   |   |   register.py
+|   |   |   split.py
+|   |   |   train_val_test.py
+|   |   |   __init__.py
+|
+|           
++---src
+|   |   __init__.py
+|   |   
+|   +---data
+|   |       __init__.py
+|   |       
+|   +---evaluation
+|   |   |   metrics.py
+|   |   |   __init__.py
+|   |   
+|   |           
+|   +---model
+|   |   |   pytorch.py
+|   |   |   utils.py
+|   |   |   __init__.py
+|   |   
+|   |           
+|   +---processing
+|       |   features.py
+|       |   target.py
+|       |   __init__.py
+|           
++---tests
+|   \---scripts
+|       \---serving
+|           \---app
+|               |   test_main.py
+```
 
 ### Theoretical Implementation
 *The below arch diagram is cloud agnostic. I used azure because the icons were free!*
 
 <img style="float: right;" src="imgs/ml flow architecture.svg">
-
-
