@@ -48,7 +48,7 @@ def train_flow():
     preprocessed = preprocess_task(CONFIG=CONFIG)
     splits = split_task(CONFIG=CONFIG)
     # Run experiments on train, val, and test data splits
-    exp0 = train_val_test_task(CONFIG, CONFIG["experiment"], CONFIG['model']["model_type"])
+    exp0 = train_val_test_task(CONFIG, CONFIG["experiment"], CONFIG["model"]["model_type"])
     registered = register_task(CONFIG, CONFIG["experiment"])
 
 

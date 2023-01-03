@@ -30,11 +30,8 @@ with open("mlruns/model.yml") as f:
 
 logging.info("Loading model")
 model_type = MODEL_CONFIG["model_type"].replace("src.model.", "").split(".")[0]
-if model_type == "sklearn":
-    model_path = "/".join(["mlruns", MODEL_CONFIG["experiment_id"], MODEL_CONFIG["run_id"], "artifacts", "sklearn_model"])
-    model = mlflow.pyfunc.load_model(model_path)
-else:
-    logging.error(f"Unknown model type {model_type}")
+model_path = "/".join(["mlruns", MODEL_CONFIG["experiment_id"], MODEL_CONFIG["run_id"], "artifacts", "sklearn_model"])
+model = mlflow.pyfunc.load_model(model_path)
 logging.info(f"Loaded {model_type} model from {model_path}")
 
 

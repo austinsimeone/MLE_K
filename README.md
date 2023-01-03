@@ -24,10 +24,13 @@
 - Using the bash script: `bash scripts/training/pipeline.sh`
 - Using the prefect flow: `python scripts/training/pipeline.py`
 
+### Review Prefect Run 
+- Launch UI: `prefect orion start`
+
 ### Review Run Metrics
 
 1. Launch MLFlow UI: `mlflow ui`
-1. Navigate to the UI: [mlflow](http://127.0.0.1:5000)
+2. Navigate to the UI: [mlflow](http://127.0.0.1:5000)
 
 ### Launch Model Server
 
